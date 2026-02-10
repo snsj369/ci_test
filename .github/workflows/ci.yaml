@@ -1,0 +1,24 @@
+name: Python Project CI
+
+on: [push, pull_request] # 只要有推送或合并请求，就开跑
+
+jobs:
+  test-suite:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 # 把你的代码拉到 GitHub 的机器上
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # 对应你本地的 3.11
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # 这里会装 requests 和 pytest
+
+      - name: Run Automated Tests
+        run: python -m pytest # 复制你刚才在本地成功的命令
